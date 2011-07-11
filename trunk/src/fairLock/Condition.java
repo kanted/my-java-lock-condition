@@ -3,11 +3,15 @@ package fairLock;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.IllegalUseOfConditionException;
+
 public class Condition {
 	private List<Semaphore> queue; // Coda FIFO di semafori, uno per ogni thread bloccato sulla condizione.
 	private Lock lock;
 
-	public void await() throws InterruptedException {
+	public void await() throws InterruptedException, IllegalUseOfConditionException {
+		if(lock.libero==true)
+			throw new IllegalUseOfConditionException();
 		Semaphore element = new Semaphore();
 		System.out.println(Thread.currentThread() + ": bloccato sulla condition");
 		queue.add(element);
@@ -19,7 +23,9 @@ public class Condition {
 		//qualcuno me lo avrˆ passato.
 	}
 
-	public void signal() throws InterruptedException {
+	public void signal() throws InterruptedException, IllegalUseOfConditionException {
+		if(lock.libero==true)
+			throw new IllegalUseOfConditionException();
 		if (queue.isEmpty()) {
 			return;
 		}
