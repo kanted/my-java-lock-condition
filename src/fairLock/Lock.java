@@ -6,20 +6,22 @@ import java.util.List;
 public class Lock {
 	List<Semaphore> entry_queue; // Coda di Semaphore, uno per ogni thread in attesa del lock.
 	List<Semaphore> urgent_queue; 
-	boolean libero = true;
+	boolean libero;
 
 	public Lock(){
 		entry_queue = new ArrayList<Semaphore>();
 		urgent_queue = new ArrayList<Semaphore>();
+		libero = true;
 	}
 
 	public void lock() throws InterruptedException {
-		Semaphore element = new Semaphore();
+		Semaphore element;
 		synchronized (this) {
 			if(libero == true){
 				libero = false; 
 				return;
 			}
+			element = new Semaphore();
 			entry_queue.add(element);
 			System.out.println(Thread.currentThread()
 						+ ": bloccato sul lock.");
