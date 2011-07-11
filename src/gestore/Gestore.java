@@ -1,4 +1,5 @@
 package gestore;
+import exception.IllegalUseOfConditionException;
 import fairLock.Condition;
 import fairLock.Lock;
 
@@ -27,7 +28,7 @@ public class Gestore {
 		disp = length;
 	}
 
-	public int richiesta1() throws InterruptedException {		
+	public int richiesta1() throws InterruptedException, IllegalUseOfConditionException {		
 		int i = 0;
 		lock.lock();
 		printUtility();
@@ -47,7 +48,7 @@ public class Gestore {
 		return i;
 	}
 	
-	public void rilascio1(int x) throws InterruptedException {		
+	public void rilascio1(int x) throws InterruptedException, IllegalUseOfConditionException {		
 		lock.lock();
 		printUtility();
 		try {
@@ -64,7 +65,7 @@ public class Gestore {
 		}	
 	}
 
-	public Coppia richiesta2() throws InterruptedException {		
+	public Coppia richiesta2() throws InterruptedException, IllegalUseOfConditionException {		
 		Coppia c = new Coppia();
 		int i = 0;
 		lock.lock();
@@ -92,7 +93,7 @@ public class Gestore {
 		return c;
 	}
 	
-	public void rilascio2(Coppia x) throws InterruptedException {		
+	public void rilascio2(Coppia x) throws InterruptedException, IllegalUseOfConditionException {		
 		lock.lock();
 		printUtility();
 		try {

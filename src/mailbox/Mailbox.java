@@ -1,4 +1,5 @@
 package mailbox;
+import exception.IllegalUseOfConditionException;
 import fairLock.Condition;
 import fairLock.Lock;
 
@@ -30,7 +31,7 @@ public class Mailbox {
 		coda = 0;
 	}
 
-	public String preleva() throws InterruptedException {
+	public String preleva() throws InterruptedException, IllegalUseOfConditionException {
 		
 		String elemento;
 		lock.lock();
@@ -52,7 +53,7 @@ public class Mailbox {
 		return elemento;
 	}
 
-	public void deposita(String valore) throws InterruptedException {
+	public void deposita(String valore) throws InterruptedException, IllegalUseOfConditionException {
 		lock.lock();
 		printUtility();
 		try {

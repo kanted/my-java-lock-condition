@@ -1,5 +1,7 @@
 package mailbox;
 
+import exception.IllegalUseOfConditionException;
+
 public class Sender extends Thread {
 
 	Mailbox mb;
@@ -16,10 +18,11 @@ public class Sender extends Thread {
 						+ ": Inizio deposito.");
 				mb.deposita(element);
 				System.out.println(Thread.currentThread() + ": Fine deposito.");
-
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());
-			}
+			} catch (IllegalUseOfConditionException s) {
+				System.out.println(s.getMessage());
+			} 
 		}
 		System.out.println(Thread.currentThread()+" ha terminato.");
 	}
