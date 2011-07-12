@@ -30,9 +30,7 @@ public class Condition {
 		}
 		Semaphore urgent_element = new Semaphore();
 		Semaphore element = queue.get(0);
-		lock.addUrgentElement(urgent_element); // L'inserimento DEVE essere fatto prima della V in modo che se 
-		// il thread associato ad element parte ed arriva a fare la unlock, 
-		// quando termina mi ripassa la mutua esclusione.
+		lock.addUrgentElement(urgent_element);
 		element.V(); // signal & continue
 		System.out.println(Thread.currentThread()
 				+ ": bloccato per signal & urgent.");
