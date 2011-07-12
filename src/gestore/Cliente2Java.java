@@ -13,9 +13,12 @@ public class Cliente2Java extends Thread {
 				System.out.println(Thread.currentThread()
 						+ ": Inizio richiesta doppia.");
 				Coppia x = mb.richiesta2();	
-			    sleep(1550);
-				mb.rilascio2(x);		
 				System.out.println(Thread.currentThread() + ": Fine richiesta doppia.");
+			    sleep(1550);
+			    System.out.println(Thread.currentThread()
+						+ ": Inizio rilascio doppio.");
+				mb.rilascio2(x);		
+				System.out.println(Thread.currentThread() + ": Fine rilascio doppio.");
 
 			} catch (InterruptedException e) {
 				System.out.println(e.getMessage());

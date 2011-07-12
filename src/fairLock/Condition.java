@@ -10,7 +10,7 @@ public class Condition {
 	private Lock lock;
 
 	public void await() throws InterruptedException, IllegalUseOfConditionException {
-		if(lock.libero==true)
+		if(lock.isUnlocked())
 			throw new IllegalUseOfConditionException();
 		Semaphore element = new Semaphore();
 		System.out.println(Thread.currentThread() + ": bloccato sulla condition");
@@ -24,7 +24,7 @@ public class Condition {
 	}
 
 	public void signal() throws InterruptedException, IllegalUseOfConditionException {
-		if(lock.libero==true)
+		if(lock.isUnlocked())
 			throw new IllegalUseOfConditionException();
 		if (queue.isEmpty()) {
 			return;
@@ -32,11 +32,11 @@ public class Condition {
 		Semaphore urgent_element = new Semaphore();
 		Semaphore element = queue.get(0);
 		element.V(); // signal & continue
-		lock.urgent_queue.add(urgent_element);
+		lock.addUrgentElement(urgent_element);
 		System.out.println(Thread.currentThread()
 				+ ": bloccato per signal & urgent.");
 		urgent_element.P(); // passaggio del testimone, senza rilasciare il lock
-		lock.urgent_queue.remove(0);
+		lock.removeUrgentElement(0);
 		System.out.println(Thread.currentThread() + ": sbloccato.");
 
 	}

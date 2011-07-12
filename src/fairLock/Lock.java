@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Lock {
-	List<Semaphore> entry_queue; // Coda di Semaphore, uno per ogni thread in attesa del lock.
-	List<Semaphore> urgent_queue; 
-	boolean libero;
+	private List<Semaphore> entry_queue; // Coda di Semaphore, uno per ogni thread in attesa del lock.
+	private List<Semaphore> urgent_queue; 
+	private boolean libero;
 
 	public Lock(){
 		entry_queue = new ArrayList<Semaphore>();
@@ -61,14 +61,25 @@ public class Lock {
 		if (urgent_queue.isEmpty() && entry_queue.isEmpty()) {
 			System.out.println(Thread.currentThread() + ": rilascia il lock");
 			libero = true;
-		}
-		else if (!urgent_queue.isEmpty()) { // Prima vengono risvegliati gli urgent, passaggio del testimone.
+		} else if (!urgent_queue.isEmpty()) { // Prima vengono risvegliati gli urgent, passaggio del testimone.
 			Semaphore element = urgent_queue.get(0);
 			element.V();
 		} else { // Politica FIFO, passaggio del testimone.
 			Semaphore element = entry_queue.get(0);
 			element.V();
 		}
+	}
+	
+	public synchronized void addUrgentElement (Semaphore urgent_element){
+		urgent_queue.add(urgent_element);
+	}
+	
+	public synchronized void removeUrgentElement (int index){
+		urgent_queue.remove(0);
+	}
+	
+	public synchronized boolean isUnlocked(){
+		return libero;
 	}
 
 	public Condition newCondition() {
