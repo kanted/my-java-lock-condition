@@ -33,7 +33,8 @@ public class Gestore {
 		int i = 0;
 		printUtility();
 		try {
-			if (disp == 0)
+			if (disp == 0) // Non serve il while perché se qualcuno l'ha svegliato gli ha passato la condizione
+						   // quindi sicuramente c'è una risorsa disponibile per lui.
 				singola.await();	
 			disp --;
 			while(!libera[i])
@@ -71,7 +72,8 @@ public class Gestore {
 		int i = 0;
 		printUtility();
 		try {
-			if (disp < 2)
+			if (disp < 2) // Non serve il while perché se qualcuno l'ha svegliato gli ha passato la condizione
+						  // quindi sicuramente c'è una coppia di risorse disponibile per lui.
 				doppia.await();	
 			disp = disp - 2;
 			while(!libera[i])
