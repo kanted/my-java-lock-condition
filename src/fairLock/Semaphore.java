@@ -5,11 +5,7 @@ public class Semaphore {
 	 boolean notified = false;
 
 	  public synchronized void P() throws InterruptedException {
-	    while(!notified){ // Non è mai possibile che uno faccia la notify prima della wait volontariamente
-	    	              // perchè il semaforo non sarebbe nella coda.
-	    	// Può succedere che qualcuno faccia la P sul semaforo prima ancora che quello che doveva farci la v.
-	    	// While perché è signal and continue quindi può succedere di tutto finché non mi risveglio e 
-	    	// quindi mi cambia la condizione.
+	    while(!notified){ // Può succedere che qualcuno faccia la P sul semaforo prima che sia fatta la V.
 	        this.wait();
 	    }
 	    this.notified = false;
