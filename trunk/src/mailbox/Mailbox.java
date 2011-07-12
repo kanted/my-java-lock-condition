@@ -32,7 +32,6 @@ public class Mailbox {
 	}
 
 	public String preleva() throws InterruptedException, IllegalUseOfConditionException {
-		
 		String elemento;
 		lock.lock();
 		printUtility();

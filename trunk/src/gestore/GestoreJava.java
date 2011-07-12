@@ -17,7 +17,7 @@ public class GestoreJava {
 	private void printUtility() {
 		System.out.println("Libera = ");
 		for (int i = 0; i < length; i++) {
-			System.out.print(libera[i]);
+			System.out.print(libera[i]+ " ");
 		}
 		System.out.println(" ");
 	}
@@ -34,8 +34,8 @@ public class GestoreJava {
 	}
 
 	public int richiesta1() throws InterruptedException {
-		int i = 0;
 		lock.lock();
+		int i = 0;
 		printUtility();
 		try {
 			if (disp == 0){
@@ -63,7 +63,7 @@ public class GestoreJava {
 			System.out.println(Thread.currentThread() + ": rilascio " + x
 					+ " .");
 			libera[x] = true;
-			if (doppie>0 && disp > 1){ // Prioritˆ.
+			if (doppie>0 && disp >= 1){ // Prioritˆ.
 				doppie --;
 				doppia.signal();
 				disp --;
@@ -80,9 +80,9 @@ public class GestoreJava {
 	}
 
 	public Coppia richiesta2() throws InterruptedException {
+		lock.lock();
 		Coppia c = new Coppia();
 		int i = 0;
-		lock.lock();
 		printUtility();
 		try {
 			if (disp < 2){

@@ -33,8 +33,7 @@ public class MailboxJava {
 		coda = 0;
 	}
 
-	public String preleva() throws InterruptedException {
-		
+	public String preleva() throws InterruptedException {	
 		String elemento;
 		lock.lock();
 		printUtility();

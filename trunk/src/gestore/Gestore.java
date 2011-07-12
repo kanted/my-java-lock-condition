@@ -14,7 +14,7 @@ public class Gestore {
 	private void printUtility(){
 		System.out.println("Libera = ");
 		for (int i = 0 ; i< length ; i++){
-			System.out.print(libera[i]);
+			System.out.print(libera[i]+ " ");
 		}
 		System.out.println(" ");
 	}
@@ -29,8 +29,8 @@ public class Gestore {
 	}
 
 	public int richiesta1() throws InterruptedException, IllegalUseOfConditionException {		
-		int i = 0;
 		lock.lock();
+		int i = 0;
 		printUtility();
 		try {
 			if (disp == 0)
@@ -66,9 +66,9 @@ public class Gestore {
 	}
 
 	public Coppia richiesta2() throws InterruptedException, IllegalUseOfConditionException {		
+		lock.lock();
 		Coppia c = new Coppia();
 		int i = 0;
-		lock.lock();
 		printUtility();
 		try {
 			if (disp < 2)
